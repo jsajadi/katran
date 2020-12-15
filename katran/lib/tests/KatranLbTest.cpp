@@ -298,7 +298,7 @@ TEST_F(KatranLbTest, testUpdateQuicReal) {
   reals[0].address = "2.0.0.1";
   QuicReal real2;
   real2.id = 2;
-  real2.address="2.0.0.1";
+  real2.address = "2.0.0.1";
   reals.emplace_back(real2);
   lb.modifyQuicRealsMapping(action, reals);
   ASSERT_EQ(lb.getQuicRealsMapping().size(), 0);

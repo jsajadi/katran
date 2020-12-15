@@ -101,7 +101,9 @@ int BpfLoader::getProgFdByName(const std::string& name) {
   }
 }
 
-bool BpfLoader::isMapInProg(const std::string& progName, const std::string& name) {
+bool BpfLoader::isMapInProg(
+    const std::string& progName,
+    const std::string& name) {
   auto progMaps = currentMaps_.find(progName);
   if (progMaps == currentMaps_.end()) {
     return false;
@@ -249,7 +251,6 @@ int BpfLoader::reloadBpfObject(
     progs_[prog_name] = ::bpf_program__fd(prog);
     loadedProgNames.insert(prog_name);
   }
-
 
   bpf_map__for_each(map, obj) {
     auto map_name = bpf_map__name(map);

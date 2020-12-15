@@ -297,7 +297,9 @@ int BpfAdapter::getProgFdByName(const std::string& name) {
   return loader_.getProgFdByName(name);
 }
 
-bool BpfAdapter::isMapInProg(const std::string& progName, const std::string& name) {
+bool BpfAdapter::isMapInProg(
+    const std::string& progName,
+    const std::string& name) {
   return loader_.isMapInProg(progName, name);
 }
 

@@ -202,7 +202,9 @@ void KatranLb::initialSanityChecking() {
     res = getHealthcheckerProgFd();
     if (res < 0) {
       throw std::invalid_argument(folly::sformat(
-          "can't get fd for prog: {}, error: {}", kHealthcheckerProgName, folly::errnoStr(errno)));
+          "can't get fd for prog: {}, error: {}",
+          kHealthcheckerProgName,
+          folly::errnoStr(errno)));
     }
     maps.push_back("hc_ctrl_map");
     maps.push_back("hc_reals_map");
@@ -458,7 +460,8 @@ void KatranLb::featureDiscovering() {
   } else {
     features_.gueEncap = false;
   }
-  if (bpfAdapter_.isMapInProg(kHealthcheckerProgName.toString(), "hc_pckt_srcs_map")) {
+  if (bpfAdapter_.isMapInProg(
+          kHealthcheckerProgName.toString(), "hc_pckt_srcs_map")) {
     VLOG(2) << "Direct healthchecking is enabled";
     features_.directHealthchecking = true;
   } else {
@@ -1280,8 +1283,8 @@ bool KatranLb::modifyLpmMap(
     void* value) {
   auto lpm_addr = IpHelpers::parseAddrToBe(prefix.first.str());
   if (prefix.first.isV4()) {
-    struct v4_lpm_key key_v4 = {.prefixlen = prefix.second,
-                                .addr = lpm_addr.daddr};
+    struct v4_lpm_key key_v4 = {
+        .prefixlen = prefix.second, .addr = lpm_addr.daddr};
     std::string mapName = lpmMapNamePrefix + "_v4";
     if (action == ModifyAction::ADD) {
       auto res = bpfAdapter_.bpfUpdateMap(
